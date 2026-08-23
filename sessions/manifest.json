@@ -1,0 +1,37 @@
+{
+  "hypothesis_id": "H-001",
+  "sessions": [
+    {
+      "session_id": "2026-05-18-WatchListScanner2",
+      "source_file": "2026-05-18-WatchListScanner2.csv",
+      "mtime": 1779157427.0808506,
+      "scanned_at": "2026-05-19T02:23:47.080851+00:00",
+      "pick_count": 10,
+      "output": "2026-05-18-WatchListScanner2.json"
+    },
+    {
+      "session_id": "2026-05-18-WatchListScanner",
+      "source_file": "2026-05-18-WatchListScanner.csv",
+      "mtime": 1779145269.267225,
+      "scanned_at": "2026-05-18T23:01:09.267225+00:00",
+      "pick_count": 10,
+      "output": "2026-05-18-WatchListScanner.json"
+    },
+    {
+      "session_id": "example-scan-export",
+      "source_file": "example-scan-export.csv",
+      "mtime": 1779145992.199198,
+      "scanned_at": "2026-05-18T23:13:12.199198+00:00",
+      "pick_count": 3,
+      "output": "example-scan-export.json"
+    },
+    {
+      "session_id": "test-run",
+      "source_file": "test-run.csv",
+      "mtime": 1779145092.283939,
+      "scanned_at": "2026-05-18T22:58:12.283939+00:00",
+      "pick_count": 3,
+      "output": "test-run.json"
+    }
+  ]
+}

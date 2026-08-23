@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0c1218">
+  <meta name="rainmaker-api-base" content="https://rainmaker-api-waqs.onrender.com">
+  <meta name="rainmaker-auth-required" content="true">
+  <meta name="rainmaker-ga-id" content="">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <title>Rainmaker Morning</title>
+  <link rel="canonical" href="https://thepokerninja.github.io/rainmaker-morning/latest.html">
+  <script>
+    (function () {
+      if (/\/index\.html$/i.test(location.pathname)) {
+        location.replace(
+          location.pathname.replace(/index\.html$/i, "latest.html") +
+            location.search +
+            location.hash
+        );
+      }
+    })();
+  </script>
+  <link rel="icon" href="assets/rainmaker-icon.png?v=33" type="image/png">
+  <!-- rm-build: login-v2 -->
+  <link rel="stylesheet" href="app.css?v=390">
+  <script>
+    try {
+      if (
+        /[?&]embed=1/.test(location.search) ||
+        window.self !== window.top
+      ) {
+        document.documentElement.classList.add("is-embed");
+      }
+      if (/[?&]native=1(?:&|$)/.test(location.search)) {
+        document.documentElement.classList.add("is-native-app");
+        try {
+          sessionStorage.setItem("rm_native_app", "1");
+        } catch (e) {}
+      } else {
+        try {
+          if (sessionStorage.getItem("rm_native_app") === "1") {
+            document.documentElement.classList.add("is-native-app");
+          }
+        } catch (e) {}
+      }
+      if (/[?&]apkBeta=1(?:&|$)/.test(location.search)) {
+        try {
+          sessionStorage.setItem("rm_apk_beta", "1");
+        } catch (e) {}
+      }
+      /* Mobile: plain header FX (mobile_perf.js). Desktop: ?headerFx=1 forces lite. */
+      var _mq = window.matchMedia && window.matchMedia("(max-width: 640px)");
+      if (_mq && _mq.matches && !/[?&]headerFx=0(?:&|$)/.test(location.search)) {
+        document.documentElement.classList.add("header-fx-lite");
+        document.documentElement.classList.add("mobile-perf-active");
+        document.documentElement.classList.add("mobile-static-mood");
+      } else if (/[?&]headerFx=1(?:&|$)/.test(location.search)) {
+        document.documentElement.classList.add("header-fx-lite");
+      }
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <div id="authGate" class="auth-gate hidden" aria-hidden="true" aria-label="Sign in to Rainmaker"></div>
+  <p id="embedOpenBanner" class="embed-open-banner" hidden>
+    <a
+      id="embedOpenLink"
+      href="https://thepokerninja.github.io/rainmaker-morning/latest.html"
+      target="_top"
+      rel="noopener noreferrer"
+    >Open full screen</a>
+  </p>
+  <div class="page-shell">
+  <header class="site-header site-header--snap-compact-fixed" id="siteHeader">
+    <button type="button" class="btn-icon btn-icon--header site-header-share" id="btnShareCard" title="Share morning verdict" aria-label="Share morning verdict">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>
+    </button>
+    <button type="button" class="btn-icon btn-icon--header site-header-account" id="btnAccount" title="Account" aria-label="Account">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg>
+    </button>
+    <div
+      class="header-bg"
+      id="headerBg"
+      data-header-video-base="assets/header/"
+      aria-hidden="true"
+    >
+      <div class="header-bg-fx" id="headerBgFx" aria-hidden="true"></div>
+    </div>
+    <div class="header-mood-fx" id="headerMoodFx" aria-hidden="true"></div>
+    <span class="header-mood-zone-hint header-mood-zone-hint--bear" aria-hidden="true">&#8249;</span>
+    <span class="header-mood-zone-hint header-mood-zone-hint--bull" aria-hidden="true">&#8250;</span>
+    <div class="header-inner">
+      <button type="button" class="brand brand-guide-trigger" id="btnBrandGuide" aria-label="Rainmaker logo — double-click for guide" title="Double-click: Rainmaker guide">
+        <span class="brand-logo-stack" id="brandLogoStack">
+          <img
+            src="assets/rainmaker-header.png?v=37"
+            alt=""
+            class="brand-logo brand-logo--static"
+            id="brandLogoStatic"
+            width="180"
+            height="180"
+            decoding="async"
+          >
+          <video
+            class="brand-logo--video-src"
+            id="brandLogoVideo"
+            src="assets/animated-logo.mp4?v=2"
+            width="180"
+            height="180"
+            loop
+            muted
+            playsinline
+            preload="auto"
+            aria-hidden="true"
+          ></video>
+          <canvas
+            class="brand-logo brand-logo--video"
+            id="brandLogoCanvas"
+            width="180"
+            height="180"
+            hidden
+            aria-hidden="true"
+          ></canvas>
+        </span>
+      </button>
+    </div>
+    <p class="header-mood-copy" id="headerMoodCopy" aria-live="polite"></p>
+    <p class="header-meta hidden" id="headerMeta" aria-live="polite"></p>
+    <div id="newsProgress" class="scan-progress hidden" aria-live="polite">
+      <p class="scan-progress-label" id="scanProgressLabel">News scan…</p>
+      <div class="scan-progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <div class="scan-progress-fill" id="scanProgressFill"></div>
+      </div>
+      <div class="scan-progress-segments" id="scanProgressSegments"></div>
+    </div>
+  </header>
+
+  <main class="app-main">
+    <section class="morning-workspace" id="morningWorkspace" aria-label="Morning dashboard">
+      <aside class="ws-panel ws-panel--market ws-panel--queued" id="workspaceMarket" data-ws-col="market" aria-label="Morning Pulse">
+        <header class="ws-panel-head ws-panel-head--tools">
+          <div class="ws-panel-head-row ws-panel-head-row--market">
+            <div class="ws-panel-head-main">
+              <div class="ws-panel-head-lead">
+                <div class="ws-panel-head-copy">
+                  <h2 class="ws-panel-title">Morning Pulse</h2>
+                  <div class="fv-bias-mini-slot" id="fvBiasMini" hidden aria-hidden="true"></div>
+                </div>
+                <button type="button" class="ws-panel-menu ws-panel-icon-btn" id="btnMarketSettings" aria-label="Morning Pulse settings">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            </button>
+              </div>
+              <div class="fv-bias-mini-tail" id="fvBiasMiniTail" hidden aria-hidden="true"></div>
+            </div>
+          </div>
+        </header>
+        <div class="ws-panel-body workspace-market-body">
+          <div id="marketPanel" class="market-panel market-panel--finviz"></div>
+          <div id="marketThemes" class="market-themes-wrap"></div>
+          <div id="marketHighlights" class="market-panel market-panel--highlights"></div>
+        </div>
+      </aside>
+
+      <aside class="ws-panel ws-panel--chart ws-panel--queued" id="workspaceChart" data-ws-col="chart" aria-label="Chart">
+        <header class="ws-panel-head ws-panel-head--tools">
+          <div class="ws-panel-head-row ws-panel-head-row--chart">
+            <div class="ws-panel-head-main">
+              <div class="ws-panel-head-lead">
+                <div class="ws-panel-head-copy">
+                  <h2 class="ws-panel-title" id="newsDayTitle">Shape of Data</h2>
+                </div>
+                <div class="ws-panel-head-actions">
+              <button type="button" class="ws-panel-menu ws-panel-icon-btn" id="btnChartSettings" aria-label="Chart settings">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+              </button>
+              <button type="button" class="ws-panel-menu ws-panel-icon-btn" id="btnChartFullscreen" aria-label="Chart fullscreen">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
+              </button>
+                </div>
+              </div>
+              <div class="ws-panel-submeta" id="chartHeadMeta">
+                <span class="ws-panel-submeta-date" id="chartHeadDate"></span>
+                <span class="ws-panel-submeta-info" id="chartHeadInfo"></span>
+                <span class="ws-panel-bars-src" id="chartHeadBarsSource" hidden></span>
+                <span class="chart-hub-scan-status" id="chartScanStatus" aria-live="polite"></span>
+                <span class="ws-panel-live" id="chartHeadLive" data-state="closed"><i class="ws-panel-live-dot" aria-hidden="true"></i><span class="ws-panel-live-text">live</span></span>
+              </div>
+            </div>
+          </div>
+        </header>
+        <div id="chartHubView" class="ws-panel-body chart-hub-view">
+          <div class="chart-hub-unified" id="chartHubUnified"></div>
+        </div>
+      </aside>
+
+      <aside class="ws-panel ws-panel--scans ws-panel--queued" id="workspaceScans" data-ws-col="scans" aria-label="Target Trades">
+        <header class="ws-panel-head ws-panel-head--tools">
+          <div class="ws-panel-head-row ws-panel-head-row--scans">
+            <div class="ws-panel-head-main">
+              <div class="ws-panel-head-lead">
+                <div class="ws-panel-head-copy">
+                  <h2 class="ws-panel-title" id="picksHeading">Target Trades</h2>
+                </div>
+              </div>
+              <nav class="tt-tabs" id="scansTabs" role="tablist" aria-label="Target Trades sections">
+                <button type="button" class="tt-tab is-active" role="tab" id="scansTabBtnResults" data-scans-tab="results" aria-selected="true" aria-controls="scansTabResults">Results</button>
+                <button type="button" class="tt-tab" role="tab" id="scansTabBtnStrategy" data-scans-tab="strategy" aria-selected="false" aria-controls="scansTabStrategy">Strategy</button>
+              </nav>
+            </div>
+          </div>
+        </header>
+        <div class="ws-panel-body ws-scans-body">
+          <div id="scansTabResults" class="tt-tab-panel" role="tabpanel" aria-labelledby="scansTabBtnResults">
+            <div class="tt-results-scroll">
+              <section id="ttResultsCommandCenter" class="tt-results-command-center" aria-label="Results command center">
+                <p class="rm-cc-kicker">Results · your desk</p>
+                <div id="ttResultsPerfStrip" class="tt-results-perf-strip" hidden></div>
+                <section id="ttResultsHero" class="tt-results-hero" aria-label="Morning desk">
+                  <div id="ttResultsHeroInner" class="tt-results-hero-inner"></div>
+                  <div id="ttResultsPlanSlot" class="tt-results-hero-setup-slot hidden" hidden></div>
+                </section>
+                <div id="ttResultsOpenRail" class="tt-results-open-rail" aria-label="Open positions">
+                  <div class="rm-open-rail-head">
+                    <p class="rm-open-rail-label">In play</p>
+                    <p class="meta rm-open-rail-meta" id="ttResultsOpenMeta"></p>
+                  </div>
+                  <div id="ttResultsOpenList" class="tt-results-open-list">
+                    <p class="cal-list-empty meta">No open positions — connect Schwab or open a setup from the chart footer.</p>
+                  </div>
+                </div>
+                <div id="ttResultsDeskCta" class="tt-results-desk-cta-slot"></div>
+              </section>
+              <section id="ttResultsActive" class="tt-results-active hidden" aria-label="Loaded scan picks" hidden>
+                <header class="tt-results-active-head">
+                  <div class="tt-results-active-copy">
+                    <p class="tt-results-active-kicker">Loaded session</p>
+                    <h3 class="tt-results-active-title" id="ttResultsActiveTitle">—</h3>
+                    <p class="meta tt-results-active-meta" id="ttResultsActiveMeta"></p>
+                  </div>
+                  <div class="tt-results-active-actions">
+                    <button type="button" class="secondary btn-sm" id="btnResultsCompare">Compare</button>
+                    <button type="button" class="secondary btn-sm" id="btnClearLoadedScan">Clear</button>
+                  </div>
+                </header>
+                <div id="scanMetricsStrip" class="tt-metrics-strip" hidden aria-label="Session trade metrics"></div>
+                <div id="pickList" class="ws-scans-list tt-results-picks"></div>
+              </section>
+              <section id="ttResultsClosed" class="tt-results-closed" aria-label="Closed trades journal">
+                <header class="tt-results-section-head">
+                  <h3 class="tt-results-section-title">Closed trades</h3>
+                  <p class="meta tt-results-closed-meta" id="ttResultsClosedMeta"></p>
+                </header>
+                <div id="ttResultsClosedList" class="tt-results-closed-list">
+                  <p class="cal-list-empty meta">No closed trades yet. Connect Schwab and sync fills, or close a setup in the footer.</p>
+                </div>
+              </section>
+            </div>
+          </div>
+          <div id="scansTabStrategy" class="tt-tab-panel hidden" role="tabpanel" aria-labelledby="scansTabBtnStrategy" hidden>
+            <div class="tt-strategy-scroll">
+              <section class="tt-learning-stack" id="ttLearningStack" aria-label="Learning and validation">
+                <section class="tt-learning-panel" id="ttResearchPanel"></section>
+                <section class="tt-learning-panel" id="ttGreenLitPanel"></section>
+                <section class="tt-learning-panel" id="ttCalibrationPanel"></section>
+                <section class="tt-learning-panel" id="ttMonthlyReviewPanel"></section>
+              </section>
+              <div id="pickListStrategy" class="tt-strategy-board"></div>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </section>
+  </main>
+  <nav id="mobileRowNav" class="mobile-row-nav" aria-label="Morning rows" hidden>
+    <button type="button" class="mobile-row-nav-btn" data-row-nav="market" id="btnRowNavMarket" aria-label="Morning Pulse">
+      <svg class="mobile-row-nav-icon mobile-row-nav-icon--ekg" width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+        <path
+          class="mobile-row-nav-ekg-base"
+          d="M1 14h4.5l1.3-2.6 1.7 5.4 2.1-7.4 1.9 5.1h4.2l1.1-2.2 1.5 4.6 1.3-3H27"
+          stroke="currentColor"
+          stroke-width="1.2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          pathLength="100"
+        />
+        <path
+          class="mobile-row-nav-ekg-trace"
+          d="M1 14h4.5l1.3-2.6 1.7 5.4 2.1-7.4 1.9 5.1h4.2l1.1-2.2 1.5 4.6 1.3-3H27"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          pathLength="100"
+        />
+      </svg>
+    </button>
+    <button type="button" class="mobile-row-nav-btn" data-row-nav="chart" id="btnRowNavChart" aria-label="Shape of Data">
+      <svg class="mobile-row-nav-icon mobile-row-nav-icon--story" width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+        <g class="mobile-row-nav-candle mobile-row-nav-candle--1">
+          <line class="mobile-row-nav-candle-wick" x1="6" y1="5" x2="6" y2="23" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+          <rect class="mobile-row-nav-candle-body" x="4.35" y="13" width="3.3" height="9" rx="0.5" fill="currentColor"/>
+        </g>
+        <g class="mobile-row-nav-candle mobile-row-nav-candle--2">
+          <line class="mobile-row-nav-candle-wick" x1="14" y1="4" x2="14" y2="24" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+          <rect class="mobile-row-nav-candle-body" x="12.35" y="10" width="3.3" height="12" rx="0.5" fill="currentColor"/>
+        </g>
+        <g class="mobile-row-nav-candle mobile-row-nav-candle--3">
+          <line class="mobile-row-nav-candle-wick" x1="22" y1="6" x2="22" y2="23" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+          <rect class="mobile-row-nav-candle-body" x="20.35" y="12" width="3.3" height="10" rx="0.5" fill="currentColor"/>
+        </g>
+      </svg>
+    </button>
+    <button type="button" class="mobile-row-nav-btn mobile-row-nav-btn--sniper" data-row-nav="scans" id="btnRowNavScans" aria-label="Target Trades">
+      <svg class="mobile-row-nav-icon mobile-row-nav-icon--sniper" width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+        <defs>
+          <clipPath id="rowNavSniperClip">
+            <circle cx="14" cy="14" r="8.5"/>
+          </clipPath>
+        </defs>
+        <circle class="mobile-row-nav-sniper-lens" cx="14" cy="14" r="9" stroke="currentColor" stroke-width="1.5"/>
+        <g class="mobile-row-nav-sniper-view" clip-path="url(#rowNavSniperClip)">
+          <g class="mobile-row-nav-sniper-acquire">
+            <path class="mobile-row-nav-sniper-cross" d="M14 4v4M14 20v4M4 14h4M20 14h4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+            <circle class="mobile-row-nav-sniper-reticle" cx="14" cy="14" r="2" fill="currentColor"/>
+          </g>
+        </g>
+        <path class="mobile-row-nav-sniper-flash" d="M14 2l1 3h-2l1-3z" fill="currentColor" opacity="0"/>
+      </svg>
+    </button>
+  </nav>
+  <div id="mobileSnapChrome" class="mobile-snap-chrome" hidden aria-hidden="true">
+    <button type="button" id="btnSnapBumperUp" class="snap-bumper snap-bumper--up" hidden aria-label="Back to Morning Pulse">
+      <svg class="snap-bumper-story-icon" width="28" height="28" viewBox="0 0 300 300" fill="none" aria-hidden="true">
+        <defs>
+          <clipPath id="snapBumperStoryClip">
+            <path transform="matrix(1,0,0,-1,0,300)" d="M0 300H300V0H0Z"/>
+          </clipPath>
+        </defs>
+        <path transform="matrix(1,0,0,-1,147.7881,78.136)" d="M0 0H3.647V-41.941H11.551V-140.418H3.754V-177.904H.096V-140.594H-7.698V-41.974H0Z" fill="currentColor"/>
+        <path transform="matrix(1,0,0,-1,188.3082,196.3055)" d="M0 0H-8.072V76.07H-.183V151.743H3.513V76.218H11.336V.051H3.629V-20.839H0Z" fill="currentColor"/>
+        <g clip-path="url(#snapBumperStoryClip)">
+          <path transform="matrix(1,0,0,-1,111.3915,120.0737)" d="M0 0H7.958V-76.232H.104V-97.012H-3.477C-3.477-91.395-3.422-85.951-3.493-80.508-3.556-75.719-2.996-76.297-7.862-76.202-8.955-76.18-10.048-76.199-11.338-76.199V-.113H-3.556V75.567H0Z" fill="currentColor"/>
+        </g>
+      </svg>
+    </button>
+    <button type="button" id="btnSnapBumperDown" class="snap-bumper snap-bumper--down" hidden aria-label="Next section">
+      <svg class="snap-bumper-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+    </button>
+  </div>
+  <footer class="app-footer" id="appFooter">
+    <div class="footer-trade-wrap">
+      <div class="footer-trade-journey" id="tradeFooterJourney" aria-label="Trade journey"></div>
+    </div>
+    <nav class="footer-actions" aria-label="Morning actions">
+      <button type="button" class="footer-mobile-btn footer-mobile-only" id="btnShareCardMobile" aria-label="Share morning verdict">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>
+      </button>
+      <button type="button" class="footer-mobile-btn footer-mobile-only" id="btnAccountMobile" aria-label="Account">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg>
+      </button>
+      <button type="button" class="btn btn-ghost btn-sm footer-action-import" id="btnImport" aria-label="Import scan">
+        <svg class="footer-mobile-only footer-mobile-import-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        <span class="btn-text-full footer-desktop-only">Import</span>
+        <span class="btn-text-short footer-desktop-only">Import</span>
+      </button>
+      <input type="file" id="fileScan" accept=".csv,text/csv,text/comma-separated-values" class="file-input-sr">
+      <div class="footer-scan-cluster">
+        <button type="button" class="btn-rm-scan footer-action-scan" id="btnCustomScan" title="Rainmaker scan (H-001)" aria-label="Rainmaker scan">
+          <span class="btn-rm-scan-idle" aria-hidden="true">
+            <svg class="btn-rm-scan-bolt" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path class="btn-rm-scan-bolt-path btn-rm-scan-bolt-path--1" d="M9 3L5 12h4l-1 9 7-11h-4l2-7z"/>
+              <path class="btn-rm-scan-bolt-path btn-rm-scan-bolt-path--2" d="M14 2l-3 8h3l-1 8 6-9h-3l1-7z"/>
+              <path class="btn-rm-scan-bolt-path btn-rm-scan-bolt-path--3" d="M18 4l-2.5 7h2.5l-.8 7 5-8h-2.5l1.3-6z"/>
+            </svg>
+          </span>
+          <img src="assets/scan-progress.gif?v=2" data-src="assets/scan-progress.gif?v=2" alt="" class="btn-rm-scan-img btn-rm-scan-active" width="56" height="56" hidden>
+        </button>
+        <button type="button" class="btn-scan-cog ws-panel-icon-btn footer-action-cog" id="btnScanSettings" aria-label="Scan rank settings">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0-.33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l-.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        </button>
+      </div>
+    </nav>
+  </footer>
+  </div>
+
+  <div id="mobileScrollEndBurst" class="mobile-scroll-end-burst" hidden aria-hidden="true">
+    <div class="mobile-scroll-end-burst-flash"></div>
+    <div class="mobile-scroll-end-burst-sparks" aria-hidden="true">
+      <span style="--sx:-42px;--sy:-34px;left:22%"></span>
+      <span style="--sx:-18px;--sy:-44px;left:34%"></span>
+      <span style="--sx:0px;--sy:-52px;left:50%"></span>
+      <span style="--sx:16px;--sy:-46px;left:62%"></span>
+      <span style="--sx:38px;--sy:-36px;left:76%"></span>
+      <span style="--sx:-28px;--sy:-22px;left:40%"></span>
+      <span style="--sx:24px;--sy:-24px;left:58%"></span>
+    </div>
+  </div>
+
+  <div id="orderBackdrop" class="drawer-backdrop hidden" aria-hidden="true"></div>
+  <aside id="orderDrawer" class="side-drawer is-closed" aria-hidden="true">
+    <div class="side-drawer-inner">
+      <header class="side-drawer-header">
+        <div>
+          <h2 id="drawerTitle">Account</h2>
+          <p class="meta" id="drawerSubtitle">Holdings &amp; history</p>
+        </div>
+        <button type="button" id="btnCloseDrawer" class="side-drawer-close" aria-label="Close">×</button>
+      </header>
+      <div id="drawerAccountStack" class="drawer-account-stack">
+        <section class="drawer-section drawer-section--integrations" id="drawerIntegrations">
+          <h3 class="drawer-section-title">Integrations</h3>
+          <div id="integrationHealth" class="rm-integration-health" aria-live="polite"></div>
+        </section>
+        <section class="drawer-section drawer-section--schwab" id="drawerSchwab">
+          <h3 class="drawer-section-title">Schwab (broker)</h3>
+          <p class="meta">Connect Schwab to sync live positions and fills. You sign in at app launch — this drawer is for Schwab, alerts, and history only.</p>
+          <p class="meta rm-schwab-status" id="schwabStatus" aria-live="polite">Checking&hellip;</p>
+          <div class="rm-schwab-actions">
+            <button type="button" class="btn-block" id="schwabConnect">Connect Schwab</button>
+            <button type="button" class="btn-link" id="schwabSync" hidden>Sync fills now</button>
+            <button type="button" class="btn-link" id="schwabDisconnect" hidden>Disconnect</button>
+          </div>
+          <p class="meta" id="schwabLastSync" aria-live="polite"></p>
+          <div id="schwabPositions" class="rm-schwab-positions"></div>
+          <div id="schwabBalances" class="rm-schwab-balances"></div>
+          <label class="rm-auto-toggle rm-schwab-poll"><input type="checkbox" id="schwabPoll"><span>Auto-sync fills during market hours (60s)</span></label>
+        </section>
+        <section class="drawer-section">
+          <h3 class="drawer-section-title">Holdings</h3>
+          <div id="drawerHoldingsView">
+            <div id="holdingsEmpty" class="holdings-empty">
+              <p>No open positions.</p>
+              <button type="button" id="btnShowAddHolding" class="btn-block">+ Add holding</button>
+            </div>
+            <div id="drawerHoldingsList" class="drawer-holdings-list hidden"></div>
+            <div id="drawerAddHolding" class="hidden">
+              <label>Symbol</label>
+              <input type="text" id="holdSymbol" autocapitalize="characters" autocomplete="off">
+              <label>Entry price</label>
+              <input type="number" step="0.01" id="holdEntry" inputmode="decimal">
+              <label>Quantity</label>
+              <input type="number" step="1" id="holdQty" inputmode="numeric" value="1">
+              <label>Instrument</label>
+              <select id="holdInstrument">
+                <option value="stock">Stock</option>
+                <option value="option">Option</option>
+              </select>
+              <label>Notes (optional)</label>
+              <input type="text" id="holdNotes" placeholder="Thesis, strike, etc.">
+              <button type="button" id="btnSaveHolding">Save holding</button>
+              <button type="button" id="btnCancelAddHolding" class="secondary">Cancel</button>
+            </div>
+            <div id="drawerHoldingDetail" class="hidden"></div>
+          </div>
+        </section>
+        <section class="drawer-section">
+          <h3 class="drawer-section-title">YTD performance</h3>
+          <div id="drawerYtdView">
+            <p class="meta" id="drawerLearningStats">Closed trades build RM learning stats here.</p>
+            <div id="drawerYtdList"></div>
+          </div>
+        </section>
+        <section class="drawer-section" id="drawerNotifications">
+          <h3 class="drawer-section-title">Notifications</h3>
+          <p class="meta">Morning briefs, trade alerts, and research summaries appear here when delivered.</p>
+          <div id="notificationsList" class="rm-notifications-list" aria-live="polite"></div>
+          <p class="meta rm-notif-status" id="notifStatus" aria-live="polite"></p>
+          <button type="button" class="btn-block btn-ghost" id="btnSendMorningBrief">Send morning brief now</button>
+        </section>
+        <section class="drawer-section" id="drawerAutomations">
+          <h3 class="drawer-section-title">Alerts &amp; automations</h3>
+          <p class="meta">A heads-up before the open and when new tickers hit the scan. Texts require the server to be configured; your preferences save here.</p>
+          <label class="rm-auto-field">Email
+            <input type="email" id="autoEmail" placeholder="you@email.com" autocomplete="email">
+          </label>
+          <label class="rm-auto-field">Mobile number
+            <input type="tel" id="autoPhone" placeholder="+1 555 000 1234" autocomplete="tel">
+          </label>
+          <label class="rm-auto-toggle rm-auto-toggle--sms-consent">
+            <input type="checkbox" id="autoSmsOptIn">
+            <span>I agree to receive SMS text messages from <strong>RainMaker</strong> (Santa Cruz Studios) at the mobile number above. Messages include pre-market briefs, trade alerts, and research updates (about 1&ndash;5 texts per trading week). Message &amp; data rates may apply. Reply <strong>STOP</strong> to opt out, <strong>HELP</strong> for help.</span>
+          </label>
+          <div class="rm-auto-toggles">
+            <label class="rm-auto-toggle"><input type="checkbox" id="autoMorningEmail"><span>Morning email brief &mdash; ~20 min before the open</span></label>
+            <label class="rm-auto-toggle"><input type="checkbox" id="autoMorningText"><span>Morning text &mdash; 20 min before the open</span></label>
+            <label class="rm-auto-toggle"><input type="checkbox" id="autoGeneralText"><span>General texts (alerts &amp; updates)</span></label>
+            <label class="rm-auto-toggle"><input type="checkbox" id="autoNewScan"><span>New scan adds</span></label>
+            <label class="rm-auto-toggle"><input type="checkbox" id="autoConsent"><span>OK to use cookies / analytics</span></label>
+          </div>
+          <button type="button" class="btn-block" id="autoSave">Save alert settings</button>
+          <button type="button" class="btn-block btn-ghost" id="autoTestSms">Text share card to me</button>
+          <p class="meta rm-auto-status" id="autoStatus" aria-live="polite"></p>
+        </section>
+        <section class="drawer-section drawer-section--auth hidden" id="drawerAuthSection" aria-hidden="true">
+          <div class="drawer-auth-head">
+            <h3 class="drawer-section-title">Signed in</h3>
+            <button type="button" id="btnAuthLogout" class="btn-link drawer-auth-logout">Sign out</button>
+          </div>
+          <p class="meta" id="drawerAuthUser">Not signed in</p>
+          <h4 class="drawer-subtitle">Recent users</h4>
+          <div id="drawerRecentUsers" class="drawer-recent-users" role="list"></div>
+        </section>
+      </div>
+      <div id="drawerTradeView" class="hidden">
+        <p class="meta pick-sub" id="drawerNews"></p>
+        <div id="drawerRmMeter"></div>
+        <div class="tabs tabs-segmented" role="tablist">
+          <button type="button" role="tab" class="active" id="tabStock" aria-selected="true">Stock</button>
+          <button type="button" role="tab" id="tabOption" aria-selected="false">Option</button>
+        </div>
+        <div id="planFields">
+          <div id="stockFields">
+            <label>Entry price</label>
+            <input type="number" step="0.01" id="entryStock" inputmode="decimal">
+            <label>Share quantity</label>
+            <input type="number" step="1" id="qtyStock" inputmode="numeric">
+            <div class="grid2">
+              <div><label>Stop</label><input type="number" step="0.01" id="stopStock" inputmode="decimal"></div>
+              <div><label>Target</label><input type="number" step="0.01" id="targetStock" inputmode="decimal"></div>
+            </div>
+          </div>
+          <div id="optionFields" class="hidden">
+            <label>Entry premium</label>
+            <input type="number" step="0.01" id="entryOpt" inputmode="decimal">
+            <label>Contracts</label>
+            <input type="number" step="1" id="contractsOpt" inputmode="numeric">
+            <div class="grid2">
+              <div><label>Stop prem</label><input type="number" step="0.01" id="stopOpt" inputmode="decimal"></div>
+              <div><label>Target prem</label><input type="number" step="0.01" id="targetOpt" inputmode="decimal"></div>
+            </div>
+          </div>
+          <button type="button" id="btnSavePlan">Enter trade</button>
+          <button type="button" id="btnClosePosition" class="secondary">Close position</button>
+        </div>
+        <div id="closePanel" class="hidden">
+          <label>Fill status</label>
+          <select id="fillStatus">
+            <option value="filled">Filled</option>
+            <option value="not_filled">Not filled</option>
+          </select>
+          <label>Exit price / premium</label>
+          <input type="number" step="0.01" id="exitPrice" inputmode="decimal">
+          <button type="button" id="btnClose">Close trade</button>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <div id="debriefBackdrop" class="drawer-backdrop hidden" aria-hidden="true"></div>
+  <aside id="tradeDebriefDrawer" class="side-drawer is-closed" aria-hidden="true">
+    <div class="side-drawer-inner">
+      <header class="side-drawer-header">
+        <div>
+          <h2 id="debriefTitle">What happened?</h2>
+          <p class="meta" id="debriefSubtitle">Trade debrief</p>
+        </div>
+        <button type="button" id="btnCloseDebrief" class="side-drawer-close" aria-label="Close">&times;</button>
+      </header>
+      <div id="debriefBody" class="rm-debrief-body"></div>
+    </div>
+  </aside>
+
+  <div id="scanBackdrop" class="drawer-backdrop hidden" aria-hidden="true"></div>
+  <aside id="scanDrawer" class="side-drawer is-closed" aria-hidden="true">
+    <div class="side-drawer-inner scan-drawer-inner">
+      <header class="side-drawer-header">
+        <div>
+          <h2>Settings</h2>
+          <p class="meta">Scan ranks and overnight agent</p>
+        </div>
+        <button type="button" id="btnCloseScanDrawer" class="side-drawer-close" aria-label="Close">×</button>
+      </header>
+      <div class="scan-drawer-tabs tabs tabs-segmented" role="tablist" aria-label="Settings sections">
+        <button type="button" role="tab" id="scanDrawerTabScan" class="active" aria-selected="true" aria-controls="scanDrawerPaneScan">Scan</button>
+        <button type="button" role="tab" id="scanDrawerTabAgent" aria-selected="false" aria-controls="scanDrawerPaneAgent">Agent</button>
+      </div>
+      <div class="scan-drawer-scroll">
+        <div id="scanDrawerPaneScan" class="scan-drawer-pane" role="tabpanel" aria-labelledby="scanDrawerTabScan">
+          <div class="scan-drawer-section">
+            <h3 class="scan-drawer-section-title">H-001 weights</h3>
+            <div id="scanRankPanel"></div>
+          </div>
+          <div class="scan-drawer-section scan-drawer-section--history">
+            <h3 class="scan-drawer-section-title">Scan history</h3>
+            <p class="scan-drawer-section-lead">All saved scans — calendar, search, and published session.</p>
+            <div id="drawerHistoryView" class="scan-history-panel">
+              <label class="calendar-search-label">Search scans<input type="search" id="drawerCalSearch" placeholder="Symbol, session, date…" autocomplete="off"></label>
+              <div id="drawerCalMonthNav" class="calendar-month-nav"></div>
+              <div id="drawerCalGrid" class="calendar-grid"></div>
+              <div id="drawerCalList" class="calendar-day-list"></div>
+            </div>
+          </div>
+        </div>
+        <div id="scanDrawerPaneAgent" class="scan-drawer-pane hidden" role="tabpanel" aria-labelledby="scanDrawerTabAgent" hidden>
+          <div id="agentPlanPanel" class="agent-plan-panel"></div>
+        </div>
+      </div>
+      <footer class="scan-drawer-footer">
+        <button type="button" id="btnSaveScanRanks" class="btn-scan-primary scan-drawer-save scan-drawer-save--scan">Save weights</button>
+        <button type="button" id="btnSaveAgentPlan" class="btn-scan-primary scan-drawer-save scan-drawer-save--agent hidden" hidden>Save agent plan</button>
+        <button type="button" id="btnDismissScanSettings" class="secondary btn-sm scan-drawer-dismiss">Dismiss</button>
+      </footer>
+    </div>
+  </aside>
+
+  <div id="toastStack" class="toast-stack" aria-live="polite" aria-atomic="false"></div>
+
+  <script src="morning.core.js?v=10"></script>
+  <script src="morning.chart.js?v=10"></script>
+  <script>
+    window.addEventListener("load", function () {
+      if (!window.RMChunkLoader) return;
+      window.RMChunkLoader.ensureLearning()
+        .then(function () {
+          if (window.RMAgent && window.RMAgent.mount) window.RMAgent.mount();
+        })
+        .catch(function () {});
+    });
+  </script>
+</body>
+</html>

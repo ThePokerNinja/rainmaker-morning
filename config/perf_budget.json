@@ -1,0 +1,66 @@
+{
+  "version": "2026-06-08",
+  "regression_pct": 0.15,
+  "profiles": {
+    "desktop_fullscreen": {
+      "label": "Desktop full screen (three columns)",
+      "viewport": { "width": 1280, "height": 800 },
+      "url_query": "smoke=1&fps=1",
+      "metrics": {
+        "workspace_ready_ms": {
+          "max": 12000,
+          "warn_max": 45000,
+          "description": "Time until .morning-workspace--ready"
+        },
+        "chart_fps_min": {
+          "min": 24,
+          "warn_min": 12,
+          "sample_ms": 4000,
+          "description": "Chart FPS meter after settle (fps=1)"
+        },
+        "symbol_change_p50_ms": {
+          "max": 500,
+          "warn_max": 1200,
+          "description": "Pick row click until chart symbol updates"
+        },
+        "account_drawer_p50_ms": {
+          "max": 300,
+          "description": "Open Account drawer median of 5 samples"
+        },
+        "long_tasks_over_200ms": {
+          "max": 3,
+          "warn_max": 8,
+          "window_ms": 10000,
+          "description": "Long tasks >200ms during 10s idle after load"
+        },
+        "time_slider_drag_p95_ms": {
+          "max": 32,
+          "warn_max": 150,
+          "description": "p95 requestAnimationFrame delta during 10-step time brush drag"
+        },
+        "chart_wheel_zoom_p95_ms": {
+          "max": 32,
+          "warn_max": 80,
+          "description": "p95 requestAnimationFrame delta during wheel zoom on chart"
+        },
+        "header_fps_min_during_drag": {
+          "min": 20,
+          "warn_min": 0,
+          "description": "Header/chart FPS meter minimum while dragging time brush (fps=1; 0 = skip in headless)"
+        }
+      }
+    },
+    "mobile_snap": {
+      "label": "Mobile snap rows",
+      "viewport": { "width": 390, "height": 844 },
+      "url_query": "smoke=1&fps=1",
+      "soak_ms_default": 120000,
+      "metrics": {
+        "workspace_ready_ms": {
+          "max": 35000,
+          "description": "Mobile workspace ready"
+        }
+      }
+    }
+  }
+}
