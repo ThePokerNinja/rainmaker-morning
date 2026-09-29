@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>RainMaker SMS opt-in - Santa Cruz Studios</title>
+  <link rel="icon" href="assets/rainmaker-icon.png" type="image/png">
+  <style>
+    :root {
+      --bg: #0c1218;
+      --card: #161f2a;
+      --text: #e8edf4;
+      --muted: #8896ad;
+      --accent: #4eb8c9;
+      --accent-muted: #7ec8d4;
+      --border: rgba(78, 184, 201, 0.22);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 24px 16px 40px;
+    }
+    .wrap { max-width: 520px; margin: 0 auto; }
+    .badge {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent-muted);
+      margin-bottom: 8px;
+    }
+    h1 {
+      margin: 0 0 8px;
+      font-size: 1.35rem;
+      font-weight: 750;
+      letter-spacing: 0.02em;
+    }
+    .lead { color: var(--muted); font-size: 0.9rem; margin: 0 0 20px; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px 16px;
+      margin-bottom: 16px;
+    }
+    .card h2 {
+      margin: 0 0 10px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--accent-muted);
+    }
+    .field {
+      display: block;
+      margin-bottom: 12px;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+    .field input {
+      display: block;
+      width: 100%;
+      margin-top: 6px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: rgba(0, 0, 0, 0.28);
+      color: var(--text);
+      font-size: 0.9rem;
+    }
+    .consent {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      margin: 14px 0;
+      padding: 12px;
+      border-radius: 10px;
+      background: rgba(78, 184, 201, 0.08);
+      font-size: 0.8rem;
+      line-height: 1.4;
+    }
+    .consent input {
+      margin-top: 3px;
+      width: 16px;
+      height: 16px;
+      accent-color: var(--accent);
+      flex-shrink: 0;
+    }
+    .btn {
+      display: block;
+      width: 100%;
+      margin-top: 8px;
+      padding: 11px 14px;
+      border: none;
+      border-radius: 10px;
+      background: linear-gradient(180deg, rgba(78, 184, 201, 0.35), rgba(78, 184, 201, 0.18));
+      color: var(--text);
+      font-weight: 700;
+      font-size: 0.88rem;
+      letter-spacing: 0.03em;
+    }
+    ol, ul { margin: 0; padding-left: 1.2rem; }
+    li { margin-bottom: 6px; font-size: 0.86rem; color: rgba(232, 237, 244, 0.92); }
+    .meta { font-size: 0.78rem; color: var(--muted); margin: 0; }
+    .samples {
+      font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+      font-size: 0.76rem;
+      line-height: 1.45;
+      padding: 10px 12px;
+      border-radius: 8px;
+      background: rgba(0, 0, 0, 0.32);
+      border: 1px solid var(--border);
+      margin-top: 8px;
+    }
+    a { color: var(--accent-muted); }
+    footer { margin-top: 24px; font-size: 0.74rem; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <p class="badge">Public compliance reference</p>
+    <h1>RainMaker SMS opt-in</h1>
+    <p class="lead">
+      Santa Cruz Studios operates RainMaker Morning, a private trading workspace.
+      SMS alerts are <strong>owner-only</strong> and collected inside the authenticated app.
+      This page documents the exact consent language shown to the user (static replica for verification).
+    </p>
+
+    <div class="card" aria-label="Opt-in form replica">
+      <h2>Alerts &amp; automations (in-app)</h2>
+      <p class="meta">After sign-in: Account &rarr; Alerts &amp; automations</p>
+      <label class="field">Mobile number
+        <input type="tel" value="+1 831 818 6191" readonly aria-readonly="true">
+      </label>
+      <label class="consent">
+        <input type="checkbox" aria-checked="false">
+        <span>I agree to receive SMS text messages from <strong>RainMaker</strong> (Santa Cruz Studios) at the mobile number above. Messages include pre-market briefs, trade alerts, and research updates (about 1&ndash;5 texts per trading week). Message &amp; data rates may apply. Reply <strong>STOP</strong> to opt out, <strong>HELP</strong> for help.</span>
+      </label>
+      <p class="meta" style="margin-top:10px">Morning text and General text toggles stay disabled until the consent box above is checked.</p>
+      <button type="button" class="btn" disabled>Save alert settings</button>
+    </div>
+
+    <div class="card">
+      <h2>How opt-in works</h2>
+      <ol>
+        <li>User signs in to RainMaker Morning (Google OAuth).</li>
+        <li>User opens <strong>Account</strong> &rarr; <strong>Alerts &amp; automations</strong>.</li>
+        <li>User enters their mobile number (E.164).</li>
+        <li>User checks the <strong>unchecked</strong> SMS consent box (language above).</li>
+        <li>User taps <strong>Save alert settings</strong>.</li>
+        <li>User may optionally enable Morning text / General text after consent.</li>
+      </ol>
+    </div>
+
+    <div class="card">
+      <h2>Sample messages</h2>
+      <div class="samples">Rainmaker morning | Market: Bullish (+0.4%) | Picks: BOC, IMCC. Reply STOP to opt out.</div>
+      <div class="samples" style="margin-top:8px">Rainmaker: Research ready - BOC catalyst summary. Reply HELP for help. Reply STOP to opt out.</div>
+    </div>
+
+    <div class="card">
+      <h2>Opt-out &amp; help</h2>
+      <ul>
+        <li>Reply <strong>STOP</strong> to cancel SMS at any time.</li>
+        <li>Reply <strong>HELP</strong> for support information.</li>
+        <li>Message frequency: about 1&ndash;5 texts per trading week.</li>
+        <li>No purchased lists; no third-party marketing.</li>
+      </ul>
+    </div>
+
+    <footer>
+      <p>Live app (login required): <a href="latest.html">latest.html</a></p>
+      <p>Legal entity: Santa Cruz Studios - Contact: michaelstewman@gmail.com</p>
+      <p>Last updated: June 2026</p>
+    </footer>
+  </div>
+</body>
+</html>

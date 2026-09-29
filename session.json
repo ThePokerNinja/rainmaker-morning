@@ -1,0 +1,181 @@
+{
+  "hypothesis_id": "H-001",
+  "session_id": "2026-05-18-WatchListScanner2",
+  "scanned_at": "2026-05-19T02:23:47.080851+00:00",
+  "source_file": "2026-05-18-WatchListScanner2.csv",
+  "session_label": null,
+  "pick_count": 10,
+  "picks": [
+    {
+      "symbol": "BOC",
+      "rm_confidence": 57.0,
+      "last": 12.3,
+      "pct_change": 11.21,
+      "volume": 647305.0,
+      "catalyst": {
+        "status": "pending",
+        "proxy_only": true,
+        "verified": null,
+        "headline": null,
+        "source_url": null,
+        "headlines": [],
+        "rm_confidence_adjusted": null
+      },
+      "rank": 1
+    },
+    {
+      "symbol": "GPRK",
+      "rm_confidence": 47.0,
+      "last": 10.39,
+      "pct_change": 8.46,
+      "volume": 812318.0,
+      "catalyst": {
+        "status": "pending",
+        "proxy_only": true,
+        "verified": null,
+        "headline": null,
+        "source_url": null,
+        "headlines": [],
+        "rm_confidence_adjusted": null
+      },
+      "rank": 2
+    },
+    {
+      "symbol": "AZTA",
+      "rm_confidence": 33.0,
+      "last": 16.24,
+      "pct_change": 1.37,
+      "volume": 2277425.0,
+      "catalyst": {
+        "status": "pending",
+        "proxy_only": true,
+        "verified": null,
+        "headline": null,
+        "source_url": null,
+        "headlines": [],
+        "rm_confidence_adjusted": null
+      },
+      "rank": 3
+    },
+    {
+      "symbol": "SLN",
+      "rm_confidence": 33.0,
+      "last": 6.23,
+      "pct_change": 2.13,
+      "volume": 371190.0,
+      "catalyst": {
+        "status": "pending",
+        "proxy_only": true,
+        "verified": null,
+        "headline": null,
+        "source_url": null,
+        "headlines": [],
+        "rm_confidence_adjusted": null
+      },
+      "rank": 4
+    },
+    {
+      "symbol": "OCFC",
+      "rm_confidence": 33.0,
+      "last": 18.44,
+      "pct_change": 1.32,
+      "volume": 560914.0,
+      "catalyst": {
+        "status": "pending",
+        "proxy_only": true,
+        "verified": null,
+        "headline": null,
+        "source_url": null,
+        "headlines": [],
+        "rm_confidence_adjusted": null
+      },
+      "rank": 5
+    },
+    {
+      "symbol": "NPO",
+      "rm_confidence": 29.0,
+      "last": 306.67,
+      "pct_change": -1.63,
+      "volume": 254543.0,
+      "catalyst": {
+        "status": "pending",
+        "proxy_only": true,
+        "verified": null,
+        "headline": null,
+        "source_url": null,
+        "headlines": [],
+        "rm_confidence_adjusted": null
+      },
+      "rank": 6
+    },
+    {
+      "symbol": "MKTX",
+      "rm_confidence": 29.0,
+      "last": 141.11,
+      "pct_change": 1.92,
+      "volume": 787886.0,
+      "catalyst": {
+        "status": "pending",
+        "proxy_only": true,
+        "verified": null,
+        "headline": null,
+        "source_url": null,
+        "headlines": [],
+        "rm_confidence_adjusted": null
+      },
+      "rank": 7
+    },
+    {
+      "symbol": "RYAN",
+      "rm_confidence": 29.0,
+      "last": 33.67,
+      "pct_change": 5.85,
+      "volume": 2755392.0,
+      "catalyst": {
+        "status": "pending",
+        "proxy_only": true,
+        "verified": null,
+        "headline": null,
+        "source_url": null,
+        "headlines": [],
+        "rm_confidence_adjusted": null
+      },
+      "rank": 8
+    },
+    {
+      "symbol": "BFH",
+      "rm_confidence": 29.0,
+      "last": 85.93,
+      "pct_change": -0.96,
+      "volume": 524535.0,
+      "catalyst": {
+        "status": "pending",
+        "proxy_only": true,
+        "verified": null,
+        "headline": null,
+        "source_url": null,
+        "headlines": [],
+        "rm_confidence_adjusted": null
+      },
+      "rank": 9
+    },
+    {
+      "symbol": "RCUS",
+      "rm_confidence": 29.0,
+      "last": 23.4,
+      "pct_change": -1.6,
+      "volume": 1126956.0,
+      "catalyst": {
+        "status": "pending",
+        "proxy_only": true,
+        "verified": null,
+        "headline": null,
+        "source_url": null,
+        "headlines": [],
+        "rm_confidence_adjusted": null
+      },
+      "rank": 10
+    }
+  ],
+  "mtime": 1779157427.0808506
+}

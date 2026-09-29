@@ -1,0 +1,102 @@
+{
+  "version": "2026-06-01",
+  "ma": {
+    "decision": "G7-B",
+    "type": "ema",
+    "periods": [9, 21, 50, 200],
+    "show_200_min_bars": 200,
+    "colors": {
+      "ema9": "#22c55e",
+      "ema21": "#eab308",
+      "ema50": "#3b82f6",
+      "ema200": "#a855f7"
+    },
+    "hidden_200_chip": "Need longer range for 200 EMA"
+  },
+  "signals": {
+    "decision": "G8-C-D",
+    "display": [
+      "trend_filter",
+      "ema_stack",
+      "golden_cross",
+      "death_cross",
+      "pullback_buy",
+      "pullback_short"
+    ],
+    "tap_enabled": ["golden_cross", "pullback_buy"],
+    "trend_filter": {
+      "uptrend": "close > ema50 && close > ema200",
+      "downtrend": "close < ema50 && close < ema200",
+      "chop": "mixed"
+    },
+    "ema_stack": {
+      "order": "ema9 > ema21 > ema50 > ema200",
+      "slope_lookback_bars": 3,
+      "require_same_slope_sign": true
+    },
+    "golden_cross": {
+      "fast": 9,
+      "slow": 21,
+      "require_uptrend": true
+    },
+    "death_cross": {
+      "fast": 9,
+      "slow": 21,
+      "require_downtrend": true
+    },
+    "pullback": {
+      "touch_tolerance_pct": 0.15,
+      "ema_levels": [9, 21],
+      "confirm_close_above_ema": true,
+      "swing_lookback_bars": 8
+    }
+  },
+  "primary_action": {
+    "decision": "G9-B",
+    "node_kind": "signal",
+    "default_rr": 2,
+    "entry": "signal_bar_close",
+    "stop": "swing_extrema",
+    "unify_with_macd_rsi": true
+  },
+  "strategy_alignment": {
+    "decision": "G10-A",
+    "default_entry_rules": ["orh", "vwap"],
+    "ema_entry_rule_follow_on": "ema_pullback",
+    "block_plan_on_trend_mismatch": false
+  },
+  "short_signals": {
+    "decision": "G11-C",
+    "allow_short_signals": false,
+    "death_cross_chart_marker": true,
+    "death_cross_opens_plan": false,
+    "death_cross_c2_chip": "Death cross · wait"
+  },
+  "ownership": {
+    "decision": "G12",
+    "approver": "Michael",
+    "runtime_json": "tools/rm_report/morning_app/config/ema_strategy.json"
+  },
+  "c2_chips": {
+    "max": 4,
+    "trend_labels": {
+      "uptrend": "EMA: Uptrend",
+      "downtrend": "EMA: Downtrend",
+      "chop": "EMA: Chop"
+    },
+    "event_labels": {
+      "golden_cross": "Golden cross",
+      "death_cross": "Death cross · wait",
+      "pullback_9": "Pullback 9",
+      "pullback_21": "Pullback 21",
+      "stack_aligned": "Stack aligned"
+    }
+  },
+  "signal_sources": [
+    "ema_golden_cross",
+    "ema_pullback_9",
+    "ema_pullback_21",
+    "ema_death_cross",
+    "macd_rsi_buy"
+  ]
+}

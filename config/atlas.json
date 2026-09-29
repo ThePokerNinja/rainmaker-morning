@@ -1,0 +1,52 @@
+{
+  "version": "2026-06-08",
+  "id": "atlas",
+  "name": "Atlas",
+  "signal_source": "atlas",
+  "aliases": ["aurorix_0_2"],
+  "kind": "options_momentum",
+  "entry": {
+    "rule": "orh_break",
+    "or_minutes": 5,
+    "require_green_day": true,
+    "require_catalyst": true
+  },
+  "options": {
+    "delta_min": 0.35,
+    "delta_max": 0.45,
+    "dte_min": 5,
+    "dte_max": 15,
+    "min_open_interest": 500,
+    "max_spread_pct": 8
+  },
+  "sizing": {
+    "risk_pct_of_bp": 0.01,
+    "max_contracts": 10,
+    "min_contracts": 1,
+    "default_rr": 2
+  },
+  "bracket": {
+    "oco_at_fill": true,
+    "stop_premium_pct": 50,
+    "limit_rr": 2
+  },
+  "trailing": {
+    "milestones_r": [0.5, 1, 1.5, 2],
+    "trim_at_2r_pct": 50
+  },
+  "scale_in": {
+    "enabled": true,
+    "trigger": "orl_touch",
+    "add_pct_of_original": 50,
+    "requires_consent": true
+  },
+  "execution": {
+    "mode": "paper",
+    "consent_required": true
+  },
+  "war_plan": {
+    "backtest_runs_target": 3,
+    "min_confidence": 0.55,
+    "min_backtest_avg_r": 0.3
+  }
+}

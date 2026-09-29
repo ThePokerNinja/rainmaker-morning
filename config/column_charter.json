@@ -1,0 +1,125 @@
+{
+  "version": "2026-06-02",
+  "product_names": {
+    "c1": "Morning Pulse",
+    "c2": "Shape of Data",
+    "c3": "Target Trades"
+  },
+  "section_intentions": {
+    "c1_pulse": "Answer: Is today safe to trade? Regime, day-risk (VIX, calendar, breadth), and overnight brief.",
+    "c2_shape": "Answer: Where is structure? ORH/plan levels, chart gates, and live alignment vs thesis.",
+    "c3_trades": "Answer: What to trade? H-001 picks, Schwab holdings, RM score, and execution journey."
+  },
+  "trade_story": {
+    "decision": "G0",
+    "granularity": "session_day",
+    "story_id_format": "YYYY-MM-DD",
+    "symbol_events": "nested",
+    "description": "One story per trading session day; symbol-scoped plan/entry/exit events nested under story_id"
+  },
+  "stage_success": {
+    "research": {
+      "metric": "brief_and_assumptions",
+      "success": "Morning brief generated; assumptions tagged"
+    },
+    "plan": {
+      "metric": "written_plan",
+      "success": "Entry, stop, target, qty defined before first entry"
+    },
+    "open": {
+      "metric": "plan_r_at_intent",
+      "success": "Plan R captured; execution_channel logged on fill"
+    },
+    "manage": {
+      "metric": "structure_aligned",
+      "success": "Shape gate reflects live structure vs plan"
+    },
+    "close": {
+      "metric": "stop_target_honored",
+      "success": "Exit matches plan or delta documented"
+    },
+    "reconcile": {
+      "metric": "dual_track_r",
+      "success": "Realized R imported; reconcile_status set"
+    },
+    "reflect": {
+      "metric": "assumption_scorecard",
+      "success": "Assumption tags feed expectancy + milestone engine"
+    }
+  },
+  "header": {
+    "decision": "G1-C",
+    "conviction_heat": true,
+    "story_readiness": false,
+    "readiness_weights": {
+      "pulse_gate_go": 0.35,
+      "shape_plan_defined": 0.25,
+      "trades_pick_validated": 0.25,
+      "brief_generated": 0.15
+    }
+  },
+  "surface": { "decision": "G2", "format": "stage_plus_band" },
+  "overnight": {
+    "decision": "G3-C",
+    "schedules": {
+      "close_et": "16:05",
+      "premarket_et": "04:00",
+      "open_et": "08:00"
+    },
+    "event_triggers": [
+      { "vix_move_pct": 2.0 },
+      { "es_futures_move_pct": 0.75 }
+    ],
+    "max_jobs_per_15m": 1
+  },
+  "execution": {
+    "decision": "G5",
+    "channels": ["platform", "tos_mobile", "tos_desktop", "schwab_app", "unknown"],
+    "track_slippage_delta": true,
+    "learning_r_requires_reconcile": true
+  },
+  "ownership": {
+    "decision": "G6",
+    "approver": "Michael",
+    "runtime_json": "tools/rm_report/morning_app/config/column_charter.json"
+  },
+  "fusion": {
+    "session_weights": {
+      "pre": { "c1": 0.55, "c2": 0.15, "c3": 0.3 },
+      "rth": { "c1": 0.4, "c2": 0.35, "c3": 0.25 },
+      "post": { "c1": 0.3, "c2": 0.2, "c3": 0.5 }
+    },
+    "gate_lean_map": {
+      "go_bull": 0.35,
+      "go_bear": -0.35,
+      "wait": 0,
+      "stop": -0.55
+    },
+    "charge_from_gates": true
+  },
+  "columns": {
+    "c1_pulse": {
+      "intention": "Is today safe to trade? Regime + day-risk + brief.",
+      "greenlit_signed": 0.24,
+      "bands": { "strong": 0.35, "moderate": 0.12, "weak": -0.12 },
+      "gates": { "stop_signed_below": -0.35, "go_signed_above": 0.18 }
+    },
+    "c2_shape": {
+      "intention": "Where is structure? Plan levels and live chart alignment.",
+      "greenlit_signed": 0.22,
+      "bands": { "strong": 0.3, "moderate": 0.1, "weak": -0.1 },
+      "gates": { "wait_without_plan": true, "go_signals_min": 2 }
+    },
+    "c3_trades": {
+      "intention": "What to trade? Picks, holdings, RM score, journey footer.",
+      "greenlit_signed": 0.2,
+      "bands": { "strong": 0.28, "moderate": 0.08, "weak": -0.08 },
+      "gates": { "stop_when_pulse_stop": true, "go_rm_min": 55, "go_news_required": true }
+    }
+  },
+  "dual_track": {
+    "decision": "dual-track",
+    "reconcile_status": ["agreed", "delta"],
+    "show_until": "agreed"
+  }
+}
