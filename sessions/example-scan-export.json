@@ -1,0 +1,62 @@
+{
+  "hypothesis_id": "H-001",
+  "session_id": "example-scan-export",
+  "scanned_at": "2026-05-18T23:13:12.199198+00:00",
+  "source_file": "example-scan-export.csv",
+  "session_label": null,
+  "pick_count": 3,
+  "picks": [
+    {
+      "symbol": "IMCC",
+      "rm_confidence": 81.0,
+      "last": 1.45,
+      "pct_change": 28.3,
+      "volume": 1250000.0,
+      "catalyst": {
+        "status": "pending",
+        "proxy_only": true,
+        "verified": null,
+        "headline": null,
+        "source_url": null,
+        "headlines": [],
+        "rm_confidence_adjusted": null
+      },
+      "rank": 1
+    },
+    {
+      "symbol": "SPOK",
+      "rm_confidence": 33.0,
+      "last": 12.1,
+      "pct_change": 1.2,
+      "volume": 45000.0,
+      "catalyst": {
+        "status": "pending",
+        "proxy_only": true,
+        "verified": null,
+        "headline": null,
+        "source_url": null,
+        "headlines": [],
+        "rm_confidence_adjusted": null
+      },
+      "rank": 2
+    },
+    {
+      "symbol": "NDRA",
+      "rm_confidence": 33.0,
+      "last": 0.89,
+      "pct_change": 5.9,
+      "volume": 890000.0,
+      "catalyst": {
+        "status": "pending",
+        "proxy_only": true,
+        "verified": null,
+        "headline": null,
+        "source_url": null,
+        "headlines": [],
+        "rm_confidence_adjusted": null
+      },
+      "rank": 3
+    }
+  ],
+  "mtime": 1779145992.199198
+}

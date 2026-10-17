@@ -1,0 +1,21 @@
+{
+  "version": "2026-06-02",
+  "line": {
+    "color": "#facc15",
+    "width": 2,
+    "dash": "",
+    "label": "Fair Value"
+  },
+  "shading": {
+    "enabled": false,
+    "opacity": 0.08,
+    "undervalued": "#22c55e",
+    "overvalued": "#ef4444"
+  },
+  "growthBands": {
+    "gdfMax": 5,
+    "pe15Max": 15
+  },
+  "cacheTtlMs": 86400000,
+  "unavailableMessage": "Fundamentals unavailable"
+}
