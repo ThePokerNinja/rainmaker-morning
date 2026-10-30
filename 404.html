@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-9vZKWcULGV9OKn1C5BYkmRPb0aX1PCzlzzfT7fDlh0M='; connect-src https://rainmaker-api-waqs.onrender.com; base-uri 'none'; form-action 'none'">
+<meta name="robots" content="noindex">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="refresh" content="6;url=https://rainmaker.michaelstewman.com/latest.html">
+<title>Rainmaker has moved</title></head>
+<body><p>Rainmaker has moved to <a href="https://rainmaker.michaelstewman.com/latest.html">rainmaker.michaelstewman.com</a>.</p>
+<script>(function () {
+  var DEST = "https://rainmaker.michaelstewman.com/latest.html";
+  var API = "https://rainmaker-api-waqs.onrender.com/pulse/bias-log";
+  function go() { location.replace(DEST); }
+  var entries = [];
+  try {
+    var raw = JSON.parse(localStorage.getItem("rm_morning_bias_log_v1") || "[]");
+    if (Array.isArray(raw)) {
+      entries = raw.filter(function (e) { return e && isFinite(Number(e.at)); }).slice(-500);
+    }
+  } catch (e) {}
+  if (!entries.length || !window.fetch) { go(); return; }
+  var timer = setTimeout(go, 4000);
+  fetch(API, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ entries: entries, clientId: "pages_carryover" }),
+  }).catch(function () {}).then(function () { clearTimeout(timer); go(); });
+})();
+</script>
+</body></html>
